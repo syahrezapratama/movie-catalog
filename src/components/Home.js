@@ -7,6 +7,8 @@ import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
 import Hero from './Hero';
 import Grid from './Grid';
 import Thumbnail from './Thumbnail';
+import Spinner from './Spinner';
+import SearchBar from './SearchBar';
 
 export default function Home() {
 
@@ -20,6 +22,7 @@ export default function Home() {
     const [state, setState] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
     
     // fetch data from API
     const fetchMovies = async (page, searchTerm = "") => {
@@ -58,7 +61,8 @@ export default function Home() {
                     text={state.results[0].overview}
                 />  
             }
-            <Grid title='Popular Movies'>
+            <SearchBar searchTerm={setSearchTerm} />
+            <Grid title='Trending Movies'>
                 {state.results.map(movie => (
                     <Thumbnail 
                         key={movie.id} 
@@ -72,6 +76,7 @@ export default function Home() {
                     />
                 ))}
             </Grid>
+            {/* <Spinner /> */}
         </>
     )
 }

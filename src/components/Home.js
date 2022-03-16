@@ -9,6 +9,7 @@ import Grid from './Grid';
 import Thumbnail from './Thumbnail';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
+import Button from './Button';
 
 export default function Home() {
 
@@ -23,6 +24,7 @@ export default function Home() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
     
     // fetch data from API
     const fetchMovies = async (page, searchTerm = "") => {
@@ -44,25 +46,37 @@ export default function Home() {
         setLoading(false);
     }
 
-    // initial render
+    // initial render and search
     useEffect(() => {
-        fetchMovies(1)
-    }, []);
+        setState(initialState);
+        fetchMovies(1, searchTerm)
+    }, [searchTerm]);
 
-    console.log(state);
+    // load more movies
+    useEffect(() => {
+        if (!isLoadingMore) {
+            return;
+        }
+        fetchMovies(state.page + 1, searchTerm);
+        setIsLoadingMore(false);
+    }, [isLoadingMore, searchTerm, state.page]);
+
+    if (error) {
+        return <div>Something went wrong...</div>
+    }
 
     return(
         <>
             {
-                state.results[0] && 
+                !searchTerm && state.results[0] && 
                 <Hero 
                     image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
                     title={state.results[0].original_title}
                     text={state.results[0].overview}
                 />  
             }
-            <SearchBar searchTerm={setSearchTerm} />
-            <Grid title='Trending Movies'>
+            <SearchBar setSearchTerm={setSearchTerm} />
+            <Grid title={searchTerm ? 'Search Results' : 'Trending Movies'}>
                 {state.results.map(movie => (
                     <Thumbnail 
                         key={movie.id} 
@@ -76,7 +90,8 @@ export default function Home() {
                     />
                 ))}
             </Grid>
-            {/* <Spinner /> */}
+            {loading && <Spinner />}
+            {state.page < state.total_pages && !loading && <Button text='Load More Movies' callback={() => setIsLoadingMore(true)} />}
         </>
     )
 }

@@ -87,12 +87,6 @@ p {
   opacity: 0.9;
 }
 
-@media screen and (max-width: 768px) {
-  .grid-title {
-    font-size: var(--fontBig)
-  }
-}
-
 @keyframes animateThumbnail {
   from {
     opacity: 0;
@@ -180,4 +174,148 @@ p {
 
 .load-button:hover {
   opacity: 0.8;
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  background-color: var(--medGrey);
+  color: var(--white);
+}
+
+.breadcrumb {
+  display: flex;
+  width: 100%;
+  max-width: var(--maxWidth);
+  padding: 0 20px;
+}
+
+.breadcrumb span {
+  font-size: var(--fontSmall);
+  color: var(--white);
+  padding-right: 10px;
+}
+
+.movieInfo-container {
+  background-color: var(--darkGray);
+  padding: 20px 20px 0 20px;
+}
+
+.movieInfo {
+  display: flex;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+.movieInfo-text {
+  width: 100%;
+  padding: 20px 40px;
+  color: var(--white);
+  overflow: hidden;
+}
+
+.movieInfo-details {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 800;
+  border-radius: 50%;
+}
+
+.director {
+  margin: 0 0 0 40px;
+}
+
+.director p {
+  margin: 0;
+}
+
+.movieInfoBar-container {
+  display: flex;
+  align-items: center;
+  min-height: 100px;
+  background: var(--darkGray);
+  padding: 0 20px;
+}
+
+.movieInfoBar {
+  display: flex;
+  max-width: var(--maxWidth);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--medGrey);
+  border-radius: 10px;
+  margin: 0 20px;
+  flex: 1;
+}
+
+.column:first-child {
+  margin-left: 0;
+}
+
+.column:last-child {
+  margin-right: 0;
+}
+
+.actor-container {
+  color: var(--white);
+  background-color: var(--darkGray);
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+}
+
+.actor-container img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.actor-container h4 {
+  margin: 10px 0 0 0;
+}
+
+.actor-container p {
+  margin: 5px 0;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .grid-title {
+    font-size: var(--fontBig)
+  }
+  .movieInfo {
+    display: block;
+    max-height: none;
+  }
+  .movieInfoBar {
+    display: block;
+  }
+  .column {
+    margin: 20px 0;
+  }
+  
 }
